@@ -89,7 +89,7 @@
         let currentStage = 0;
         let yesScale = 1;
 
-        // Scripted Meme Photo Stages
+        // CDN Optimized Stages
         const stages = [
             {
                 badge: "🚨 Danger Level 1",
@@ -114,14 +114,14 @@
             },
             {
                 badge: "🛑 Patient is Crying",
-                image: "https://i.imgflip.com/265j.jpg", // "Am I a joke to you?" Classic Meme (Perfect for 'Meme badal gaye par gussa nahi')
+                image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=500&auto=format&fit=crop", // Ultra-stable Despair/Neon Error Void Face
                 title: "Meme badal gaye par gussa wahi hai? 🥺",
                 subtext: "Mera poora breakdown hone wala hai ab. Itna mat rulao, jaldi se haan bol ke call pe aao na!",
                 noText: "Yeh lo aakhri baar No! 💀"
             },
             {
                 badge: "🛡️ BHOJPURI MODE ACTIVATED",
-                image: "https://i.imgflip.com/5c7b7x.jpg", // Hide the Pain Harold
+                image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Andr%C3%A1s_Arat%C3%B3_cropped.jpg", // Absolute Bulletproof Wikimedia Source for Hide the Pain Harold
                 title: "Ae bhaiya! Ab ta maan jaa na! 🙏❤️",
                 subtext: "Hadd ba ee! Ab 'No' dabawe se kuchu na hoi, poora system eja leak ho gail ba! Ab chupchaap u upar wala bada ka pink buttonwa daba da raaja! 👇",
                 noText: "Dabawe ke pari ka? 🛑"
@@ -138,7 +138,6 @@
                 subtext.innerText = stage.subtext;
                 noBtn.innerText = stage.noText;
 
-                // Progressive button scaling framework
                 yesScale += 0.2;
                 yesBtn.style.transform = `scale(${yesScale})`;
                 
@@ -157,7 +156,8 @@
             statusBadge.innerText = "💚 Status: All Sorted!";
             statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            memePhoto.src = "https://i.imgflip.com/16i9ex.jpg"; // Success/Happy Kid
+            // Bulletproof open infrastructure victory illustration path
+            memePhoto.src = "https://images.unsplash.com/photo-1516624683217-bf02fc6b6b7c?q=80&w=500&auto=format&fit=crop"; 
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
