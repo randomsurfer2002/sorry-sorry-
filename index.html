@@ -16,6 +16,7 @@
             background: linear-gradient(135deg, #fff1f2 0%, #fce7f3 50%, #ffe4e6 100%);
             -webkit-touch-callout: none;
             user-select: none;
+            overflow: hidden;
         }
         .serif-font {
             font-family: 'Playfair Display', serif;
@@ -27,28 +28,51 @@
         .pulse-btn {
             animation: dynamic-bounce 2s infinite;
         }
+        
+        /* Floating Hearts Animation Background */
+        .heart {
+            position: absolute;
+            bottom: -10%;
+            font-size: 20px;
+            color: #f43f5e;
+            opacity: 0.6;
+            animation: floatUp 6s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-y-auto relative bg-fixed">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative bg-fixed">
 
-    <!-- Ambient Background Elements -->
-    <div class="absolute top-6 left-6 text-2xl opacity-40">🩺</div>
-    <div class="absolute bottom-12 right-6 text-3xl opacity-40">❤️</div>
-    <div class="absolute top-1/4 right-8 text-2xl opacity-30">💊</div>
+    <!-- Container for Floating Hearts Matrix -->
+    <div id="hearts-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <!-- Ambient Medical Elements -->
+    <div class="absolute top-6 left-6 text-2xl opacity-40 z-10">🩺</div>
+    <div class="absolute bottom-12 right-6 text-3xl opacity-40 z-10">❤️</div>
+    <div class="absolute top-1/4 right-8 text-2xl opacity-30 z-10">💊</div>
 
     <!-- Main Dynamic Card -->
-    <div class="bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-3xl shadow-xl max-w-sm w-full text-center border border-rose-100 relative z-10 my-auto">
+    <div class="bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-3xl shadow-xl max-w-sm w-full text-center border border-rose-100 relative z-20 my-auto">
         
         <!-- Live Alert Badge -->
         <div id="status-badge" class="inline-block bg-rose-50 border border-rose-100 text-rose-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4 uppercase tracking-wider">
             🚨 Mood Status: Senti 
         </div>
 
-        <!-- Stable Meme Photo Container -->
-        <div class="w-full h-52 mx-auto mb-5 rounded-2xl overflow-hidden shadow-md bg-slate-100 flex items-center justify-center border border-rose-50 relative">
-            <span class="absolute text-xs text-slate-300 z-0">Loading meme...</span>
-            <!-- Initial Drake Template -->
-            <img id="meme-photo" src="https://i.imgflip.com/43a45p.png" alt="Meme Template" class="w-full h-full object-contain relative z-10">
+        <!-- Stable Emoji Visual Container -->
+        <div class="w-full h-40 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center border border-rose-100 shadow-inner">
+            <span id="display-emoji" class="text-7xl transition-all duration-300 transform hover:scale-110">🥺👉👈</span>
         </div>
 
         <!-- Dynamic Title -->
@@ -67,73 +91,74 @@
                 Yes, Forgiven! ❤️
             </button>
             
-            <button id="no-btn" onclick="triggerNextMeme()" class="bg-slate-100 active:bg-slate-200 text-slate-500 font-semibold px-6 py-2.5 rounded-full transition-all duration-200 w-full text-xs cursor-pointer">
+            <button id="no-btn" onclick="triggerNextStage()" class="bg-slate-100 active:bg-slate-200 text-slate-500 font-semibold px-6 py-2.5 rounded-full transition-all duration-200 w-full text-xs cursor-pointer">
                 No 😤
             </button>
         </div>
     </div>
 
-    <div class="text-slate-400 text-[10px] mt-4 font-medium tracking-wide z-10">
+    <div class="text-slate-400 text-[10px] mt-4 font-medium tracking-wide z-20">
         Prescription ID: #SORRY-DOC-2026
     </div>
 
-    <!-- Scripting Engine for Step-by-Step Meme Photo Buildup -->
+    <!-- Scripting Engine for Custom UI Logic -->
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const headline = document.getElementById('headline');
         const subtext = document.getElementById('subtext');
-        const memePhoto = document.getElementById('meme-photo');
+        const displayEmoji = document.getElementById('display-emoji');
         const statusBadge = document.getElementById('status-badge');
+        const heartsContainer = document.getElementById('hearts-container');
         
         let currentStage = 0;
         let yesScale = 1;
 
-        // CDN Optimized Stages
+        // Dynamic Emojis Matrix matched with original custom scripts
         const stages = [
             {
                 badge: "🚨 Danger Level 1",
-                image: "https://i.imgflip.com/26am.jpg", // One Does Not Simply
+                emoji: "😲🕵️‍♂️",
                 title: "Arey sacchi me 'No' daba diya? 😂",
                 subtext: "Itni aasaani se aam patient ki tarah sorry reject kar dogi kya Doctor Sahiba? Ek aur baar socho!",
                 noText: "Nahi maaf karungi! 🙅‍♀️"
             },
             {
                 badge: "⚠️ High BP Warning",
-                image: "https://i.imgflip.com/8p0a.jpg", // Side Eye Chloe
+                emoji: "🙄😒",
                 title: "Hey bhagwan! Phir se 'No'? 🤦‍♂️",
                 subtext: "Tumhara focus padhai aur is gusse par hi rahega kya? Thoda idhar bhi dekh lo, itna pyaara page banaya hai!",
                 noText: "Pakka nahi! 😤"
             },
             {
                 badge: "🔥 Medical License at Risk",
-                image: "https://i.imgflip.com/1bgw.jpg", // Grumpy Cat
+                emoji: "😾🙅‍♀️",
                 title: "Error 403: Gussa Out of Bounds!",
                 subtext: "Doctor hokar patient par itna atyachar? Medical ethics iski ijazat nahi dete! Jaldi se bada wala pink button daba do.",
                 noText: "Ek aur baar try karti hu 😜"
             },
             {
                 badge: "🛑 Patient is Crying",
-                image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=500&auto=format&fit=crop", // Ultra-stable Despair/Neon Error Void Face
+                emoji: "😭💔",
                 title: "Meme badal gaye par gussa wahi hai? 🥺",
                 subtext: "Mera poora breakdown hone wala hai ab. Itna mat rulao, jaldi se haan bol ke call pe aao na!",
                 noText: "Yeh lo aakhri baar No! 💀"
             },
             {
                 badge: "🛡️ BHOJPURI MODE ACTIVATED",
-                image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Andr%C3%A1s_Arat%C3%B3_cropped.jpg", // Absolute Bulletproof Wikimedia Source for Hide the Pain Harold
+                emoji: "😩🤦‍♂️💥",
                 title: "Ae bhaiya! Ab ta maan jaa na! 🙏❤️",
-                subtext: "Hadd ba ee! Ab 'No' dabawe se kuchu na hoi, poora system eja leak ho gail ba! Ab upar wala bada ka pink buttonwa daba do! 👇",
+                subtext: "Hadd ba ee! Ab 'No' dabawe se kuchu na hoi, poora system eja leak ho gail ba! Ab chupchaap u upar wala bada ka pink buttonwa daba da raaja! 👇",
                 noText: "Dabawe ke pari ka? 🛑"
             }
         ];
 
-        function triggerNextMeme() {
+        function triggerNextStage() {
             if (currentStage < stages.length) {
                 const stage = stages[currentStage];
                 
                 statusBadge.innerText = stage.badge;
-                memePhoto.src = stage.image;
+                displayEmoji.innerText = stage.emoji;
                 headline.innerText = stage.title;
                 subtext.innerText = stage.subtext;
                 noBtn.innerText = stage.noText;
@@ -143,7 +168,7 @@
                 
                 currentStage++;
             } else {
-                headline.innerText = "Chupchaap 'Yes' daba do ab! 🥺👉👈";
+                headline.innerText = "Chupchaap 'Yes' daba da ab! 🥺👉👈";
                 subtext.innerText = "Ab 'No' buttonwa thak gail ba, khali 'Yes' kaam kari!";
             }
         }
@@ -156,13 +181,35 @@
             statusBadge.innerText = "💚 Status: All Sorted!";
             statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            // Bulletproof open infrastructure victory illustration path
-            memePhoto.src = "https://images.unsplash.com/photo-1516624683217-bf02fc6b6b7c?q=80&w=500&auto=format&fit=crop"; 
+            displayEmoji.innerText = "🥳🎉💖";
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
             subtext.innerHTML = "Acche se padho and call me when you get free. I'm proud of you. Love you!";
+            
+            // Intensify hearts upon acceptance
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 150);
+            }
         }
+
+        // Floating Hearts Generation Loop
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = ['❤️', '💖', '💝', '💕'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Continuous slow generation background loop
+        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
