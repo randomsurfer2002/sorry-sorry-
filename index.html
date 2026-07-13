@@ -4,81 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Favorite Doctor 🩺❤️</title>
+    <!-- Tailwind CSS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(135deg, #fff1f2 0%, #fce7f3 50%, #ffe4e6 100%);
             -webkit-touch-callout: none;
-            -webkit-user-select: none;
             user-select: none;
         }
         .serif-font {
             font-family: 'Playfair Display', serif;
         }
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+        @keyframes dynamic-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        .floating-element {
-            animation: float-slow 4s ease-in-out infinite;
+        .pulse-btn {
+            animation: dynamic-bounce 2s infinite;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden relative touch-none">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-y-auto relative bg-fixed">
 
-    <div class="absolute top-6 left-6 text-pink-300 floating-element text-2xl opacity-60">🩺</div>
-    <div class="absolute bottom-12 right-6 text-rose-300 floating-element text-3xl opacity-60" style="animation-delay: 1s;">❤️</div>
-    <div class="absolute top-1/5 right-8 text-pink-300 floating-element text-2xl opacity-50" style="animation-delay: 2s;">💊</div>
+    <!-- Floating Emojis -->
+    <div class="absolute top-6 left-6 text-2xl opacity-40">🩺</div>
+    <div class="absolute bottom-12 right-6 text-3xl opacity-40">❤️</div>
+    <div class="absolute top-1/4 right-8 text-2xl opacity-30">💊</div>
 
-    <div id="main-card" class="bg-white/85 backdrop-blur-lg p-6 md:p-12 rounded-3xl shadow-2xl max-w-sm w-full text-center border border-rose-100 relative z-10 transition-all duration-300">
+    <!-- Main Dynamic Card -->
+    <div class="bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-3xl shadow-xl max-w-sm w-full text-center border border-rose-100 relative z-10 my-auto">
         
-        <div id="status-badge" class="inline-block bg-rose-50 border border-rose-100 text-rose-600 text-xs font-semibold px-4 py-1 rounded-full mb-4 uppercase tracking-wider">
-            🚨 Operation: Mood Repair Active
+        <!-- Live Alert Badge -->
+        <div id="status-badge" class="inline-block bg-rose-50 border border-rose-100 text-rose-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4 uppercase tracking-wider">
+            🚨 Operation: Mood Repair (Stage 1/6)
         </div>
 
-        <div class="w-40 h-40 mx-auto mb-4 rounded-2xl overflow-hidden shadow-sm bg-rose-50/50 flex items-center justify-center border border-rose-100">
-            <img id="main-gif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY0Y3Y1N3M1YmFpdW9wM281b3gwb3AwdzZpYmE4ZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1q5wFBYFdBAq18a/giphy.gif" alt="Cute Sulking GIF" class="w-full h-full object-cover">
+        <!-- Stable Meme/GIF Container -->
+        <div class="w-48 h-48 mx-auto mb-5 rounded-2xl overflow-hidden shadow-inner bg-slate-50 flex items-center justify-center border border-rose-50 relative">
+            <!-- Loader text if image takes a second on mobile network -->
+            <span class="absolute text-xs text-slate-300 z-0">Loading prescription...</span>
+            <img id="meme-gif" src="https://media.tenor.com/y297tPn54v0AAAAi/cute-cat.gif" alt="Meme Status" class="w-full h-full object-cover relative z-10">
         </div>
 
-        <h1 id="headline" class="serif-font text-2xl md:text-3xl font-semibold text-slate-800 mb-2 transition-all duration-300">
-            I'm Sorry, Babu...
+        <!-- Interactive Headings -->
+        <h1 id="headline" class="serif-font text-2xl font-bold text-slate-800 mb-2 transition-all duration-300">
+            I'm Sorry, Babu... 🥺
         </h1>
 
-        <p id="subtext" class="text-slate-600 mb-6 text-xs md:text-sm leading-relaxed min-h-[40px]">
+        <!-- Funny Medical Prompts -->
+        <p id="subtext" class="text-slate-600 mb-6 text-sm leading-relaxed min-h-[64px] flex items-center justify-center px-2">
             I know yesterday you were sad. Your angry face is incredibly cute, but making you feel unheard hurts me the most. Maaf kar do na? Please?
         </p>
 
-        <div id="counter-zone" class="text-[10px] text-slate-400 font-medium mb-4 opacity-0 transition-opacity duration-300">
-            Rejection attempts blocked: <span id="click-count-span" class="text-rose-500 font-bold">0</span>
-        </div>
-
-        <div id="button-container" class="flex flex-row items-center justify-center gap-4 relative min-h-[50px] w-full px-2">
-            <button id="yes-btn" onclick="acceptApology()" class="bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold px-6 py-2.5 rounded-full shadow-md shadow-rose-200 transition-all duration-300 transform active:scale-95 z-20 text-sm whitespace-nowrap">
+        <!-- Dynamic Button Matrix -->
+        <div class="flex flex-col gap-3 justify-center items-center w-full">
+            <button id="yes-btn" onclick="acceptApology()" class="pulse-btn bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-extrabold px-8 py-3 rounded-full shadow-lg shadow-rose-200 transition-all duration-300 w-full text-sm cursor-pointer transform active:scale-95">
                 Yes, Forgiven! ❤️
             </button>
-            <button id="no-btn" class="bg-slate-100 text-slate-500 font-semibold px-6 py-2.5 rounded-full transition-all duration-200 absolute z-30 shadow-sm text-sm whitespace-nowrap">
+            
+            <button id="no-btn" onclick="triggerNextMeme()" class="bg-slate-100 active:bg-slate-200 text-slate-500 font-semibold px-6 py-2.5 rounded-full transition-all duration-200 w-full text-xs cursor-pointer">
                 No 😤
             </button>
         </div>
     </div>
 
+    <div class="text-slate-400 text-[10px] mt-4 font-medium tracking-wide z-10">
+        Prescription ID: #SORRY-DOC-2026
+    </div>
+
+    <!-- Scripting Engine for Step-by-Step Meme Buildup -->
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const headline = document.getElementById('headline');
         const subtext = document.getElementById('subtext');
-        const gifImage = document.getElementById('main-gif');
-        const counterZone = document.getElementById('counter-zone');
-        const clickSpan = document.getElementById('click-count-span');
+        const memeGif = document.getElementById('meme-gif');
         const statusBadge = document.getElementById('status-badge');
         
-        let clickCount = 0;
+        let currentStage = 0;
         let yesScale = 1;
 
+        // Sound Engine
         function playTone(freq, type, duration) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -86,8 +97,8 @@
                 const gain = ctx.createGain();
                 osc.type = type;
                 osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.005, ctx.currentTime + duration);
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.004, ctx.currentTime + duration);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.start();
@@ -95,71 +106,84 @@
             } catch(e) {}
         }
 
-        // Lock No button to its initial grid space smoothly
-        function setupMobileLayout() {
-            noBtn.style.left = 'calc(50% + 8px)';
-            noBtn.style.transform = 'none';
-        }
-        window.onload = setupMobileLayout;
+        // Scripted Meme Stages Array (Using rock solid direct Tenor links)
+        const stages = [
+            {
+                badge: "🚨 Stage 2/6: Heart Rate Rising",
+                gif: "https://media.tenor.com/2m72vNidG3AAAAAi/cute-sad.gif",
+                title: "Arey! Sacchi me 'No' click kiya? 😲",
+                subtext: "Doctor sahiba, itna gussa? Chalo ek aur mauka diya, check your clinical empathy parameters again!",
+                noText: "Still No! 😤"
+            },
+            {
+                badge: "⚠️ Stage 3/6: High BP Alert",
+                gif: "https://media.tenor.com/l57N61vU26MAAAAi/cat-cute.gif",
+                title: "Dekho, cute cat ro rahi hai... 😭",
+                subtext: "Itni pyaari cat ko rulaoongi kya? Please maan jao na, ab pure din gussa thodi na rehte hain!",
+                noText: "Nahi Maanungi! 🙅‍♀️"
+            },
+            {
+                badge: "🔥 Stage 4/6: Critical Condition",
+                gif: "https://media.tenor.com/xI-g5_pU17UAAAAi/peach-goma.gif",
+                title: "Oho, Heart Attack aa jayega mujhe!💔",
+                subtext: "Agar abki baar No dabaya toh clinical shock lag jayega mujhe. Urgent prescription: Click the Pink Button!",
+                noText: "Ek aur baar No! 😜"
+            },
+            {
+                badge: "🛑 Stage 5/6: Emergency Ward",
+                gif: "https://media.tenor.com/00C819R9J0UAAAAi/cry-sad.gif",
+                title: "Bas karo, kitni pariksha logi? 🥺",
+                subtext: "Aaditya is 99% close to mental breakdown. Medical ethics don't allow torturing patients like this, Doc!",
+                noText: "Last warning No! 💀"
+            },
+            {
+                badge: "🛡️ Stage 6/6: Absolute Lockout",
+                gif: "https://media.tenor.com/u94-N89u6v0AAAAi/begging-cat.gif",
+                title: "Please, Ab toh Maan Jao! 🙏❤️",
+                subtext: "Okay fine, ab No button click karne par bhi text change nahi hoga. Ab bas upar wala bada pink button hi bacha sakta hai. Please press it! 👇",
+                noText: "Clicking this does nothing now! 🛑"
+            }
+        ];
 
-        function evadeButton(e) {
-            if(e) e.preventDefault(); // Blocks default tap execution on iOS completely
-            clickCount++;
-            counterZone.classList.remove('opacity-0');
-            clickSpan.innerText = clickCount;
+        function triggerNextMeme() {
+            playTone(380, 'triangle', 0.1);
             
-            playTone(493.88, 'triangle', 0.08); // B4 tone
-            
-            // Scaled scaling physics to prevent clipping screen bounds on iPhone
-            yesScale += 0.18;
-            yesBtn.style.transform = `scale(${yesScale})`;
-            
-            // Exact iPad/iPhone Safe Zone calculation bounds
-            const btnWidth = noBtn.offsetWidth;
-            const btnHeight = noBtn.offsetHeight;
-            const safePadding = 40;
-            
-            const maxX = window.innerWidth - btnWidth - (safePadding * 2);
-            const maxY = window.innerHeight - btnHeight - (safePadding * 2);
-            
-            const randomX = Math.random() * maxX + safePadding;
-            const randomY = Math.random() * maxY + safePadding;
-            
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
+            if (currentStage < stages.length) {
+                const stage = stages[currentStage];
+                
+                // Update Layout Elements
+                statusBadge.innerText = stage.badge;
+                memeGif.src = stage.gif;
+                headline.innerText = stage.title;
+                subtext.innerText = stage.subtext;
+                noBtn.innerText = stage.noText;
 
-            if (clickCount === 2) {
-                headline.innerText = "Arey tap nahi ho raha? 😂";
-                gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzhwMG1ndm9nMzhvMzhrN2FpZzBwaThpaThpaThpaThwaThwaThwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t3cL1Ch4IFPzy/giphy.gif";
-            } else if (clickCount === 4) {
-                statusBadge.innerText = "⚠️ High Pressure Active";
-                subtext.innerText = "System configurations handle only 'Yes' responses right now, Doc.";
-                gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3g5M3R3Y2g1bzhvaTNvd2dpZ2pndzhpZzhpZzhpZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGBJLxl6/giphy.gif";
-            } else if (clickCount >= 6) {
-                headline.innerText = "Error 403: Rejection Forbidden";
-                subtext.innerHTML = "Excess anger parameters detected. Medical license code risk! Tap the pink button! 🫣";
+                // Make the Yes button grow progressively to make it irresistible
+                yesScale += 0.2;
+                yesBtn.style.transform = `scale(${yesScale})`;
+                
+                currentStage++;
+            } else {
+                // If she keeps tapping at the final stage
+                headline.innerText = "Please, click Yes now! 🥺👉👈";
+                subtext.innerText = "Emergency parameters reached. Only the big pink 'Yes' works now!";
             }
         }
-
-        // Universal Event Bindings targeting iOS Touch alongside standard pointers
-        noBtn.addEventListener('touchstart', evadeButton, {passive: false});
-        noBtn.addEventListener('mouseover', evadeButton);
 
         function acceptApology() {
             noBtn.style.display = 'none';
             yesBtn.style.transform = 'scale(1)';
             yesBtn.style.display = 'none';
-            counterZone.style.display = 'none';
             
             playTone(523.25, 'sine', 0.12);
             setTimeout(() => playTone(659.25, 'sine', 0.12), 80);
             setTimeout(() => playTone(783.99, 'sine', 0.25), 160);
 
             statusBadge.innerText = "💚 Status: Successfully Repaired";
-            statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-semibold px-4 py-1 rounded-full mb-4";
+            statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIybHhsdzBvNzNiaDRpbmpybWJpM2NpeWloYmE4ZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l4pTdcifPzcib8xaE/giphy.gif"; 
+            // Unstoppable celebration gif
+            memeGif.src = "https://media.tenor.com/gK6pL2E9W3IAAAAi/milk-and-mocha.gif"; 
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
