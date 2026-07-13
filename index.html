@@ -45,9 +45,10 @@
         </div>
 
         <!-- Stable Meme Photo Container -->
-        <div class="w-48 h-48 mx-auto mb-5 rounded-2xl overflow-hidden shadow-md bg-slate-50 flex items-center justify-center border border-rose-50 relative">
-            <span class="absolute text-xs text-slate-300 z-0">Loading prescription photo...</span>
-            <img id="meme-photo" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500&auto=format&fit=crop" alt="Cute Sad Cat" class="w-full h-full object-cover relative z-10">
+        <div class="w-full h-52 mx-auto mb-5 rounded-2xl overflow-hidden shadow-md bg-slate-100 flex items-center justify-center border border-rose-50 relative">
+            <span class="absolute text-xs text-slate-300 z-0">Loading original meme...</span>
+            <!-- Drake Meme Initial Stage -->
+            <img id="meme-photo" src="https://i.imgflip.com/43a45p.png" alt="Meme Template" class="w-full h-full object-contain relative z-10">
         </div>
 
         <!-- Interactive Headings -->
@@ -88,42 +89,42 @@
         let currentStage = 0;
         let yesScale = 1;
 
-        // Scripted Meme Photo Stages Array (Highly reliable public image vectors)
+        // Scripted Meme Photo Stages Array (Using ultra-reliable global Imgflip CDN vectors)
         const stages = [
             {
                 badge: "🚨 Stage 2/6: Heart Rate Rising",
-                image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=500&auto=format&fit=crop", // Cat with glasses looking shocked
+                image: "https://i.imgflip.com/26am.jpg", // One Does Not Simply
                 title: "Arey! Sacchi me 'No' click kiya? 😲",
-                subtext: "Doctor sahiba, itna gussa? Chalo ek aur mauka diya, check your clinical empathy parameters again!",
+                subtext: "One does not simply say 'No' to an apology as sincere as this! Check your clinical empathy parameters again, Doc!",
                 noText: "Still No! 😤"
             },
             {
-                badge: "⚠️ Stage 3/6: BP Badh Gya",
-                image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?q=80&w=500&auto=format&fit=crop", // Judgemental Cat face
-                title: "Dekho, cute cat kitni sad hai... 😿",
-                subtext: "Itni pyaari shakal ko rulaoongi kya? Please maan jao na, ab pure din gussa thodi na rehte hain!",
+                badge: "⚠️ Stage 3/6: High BP Alert",
+                image: "https://i.imgflip.com/1ur9b0.jpg", // Distracted Boyfriend
+                title: "Gusse ko chodo, smile back! 😅",
+                subtext: "Why focus on minor fights when you could be checking out your awesome future plans together? Maan jao ab!",
                 noText: "Nahi Maanungi! 🙅‍♀️"
             },
             {
                 badge: "🔥 Stage 4/6: Critical Condition",
-                image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=500&auto=format&fit=crop", // Sad puppy eyes pleading
-                title: "Oho, Heart Attack aa jayega mujhe!💔",
-                subtext: "Agar abki baar No dabaya toh kidney mein heart attack aa jayega mujhe. Click the Pink Button!",
+                image: "https://i.imgflip.com/1bgw.jpg", // Grumpy Cat original classic meme
+                title: "Itna bhayanak mood off? 💔",
+                subtext: "An apology code this perfect doesn't deserve a rejection. Urgent prescription: Click the Pink Button!",
                 noText: "Ek aur baar No! 😜"
             },
             {
                 badge: "🛑 Stage 5/6: Emergency Ward",
-                image: "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=500&auto=format&fit=crop", // Cute kitten hide face hiding under blanket
-                title: "Bas karo, kitni pariksha logi? 🥺",
-                subtext: "Sochlo tumko hi ilaaj karna padega",
+                image: "https://i.imgflip.com/9ehk.jpg", // Disappointed Fan Meme
+                title: "Meme badal gaya, aapka mood nahi? 🥺",
+                subtext: "Aaditya is close to a total breakdown. Medical ethics don't allow torturing patients like this, Doctor Sahiba!",
                 noText: "Last warning No! 💀"
             },
             {
-                badge: "🛡️ Stage 6/6: Gaya Coma mei",
-                image: "https://images.unsplash.com/photo-1535268647977-a403b69fc756?q=80&w=500&auto=format&fit=crop", // Pleading otter holding hands together
-                title: "अब त मान जाईं! 🙏❤️",
-                subtext: "Sorry, sorry कह तारू 👇",
-                noText: "एकरा के क्लिक कइला से कुछ ना होई 🛑"
+                badge: "🛡️ Stage 6/6: Absolute Lockout",
+                image: "https://i.imgflip.com/2fm6x.jpg", // Epic pleading face template
+                title: "Please, Ab toh Maan Jao! 🙏❤️",
+                subtext: "Okay fine, ab No button click karne par bhi story change nahi hogi. Ab bas upar wala bada pink button hi bacha sakta hai. Please press it! 👇",
+                noText: "Clicking this does nothing now! 🛑"
             }
         ];
 
@@ -139,13 +140,13 @@
                 noBtn.innerText = stage.noText;
 
                 // Make the Yes button grow progressively larger
-                yesScale += 0.15;
+                yesScale += 0.18;
                 yesBtn.style.transform = `scale(${yesScale})`;
                 
                 currentStage++;
             } else {
-                headline.innerText = "Please, Please, Pleaseeeee! 🥺👉👈";
-                subtext.innerText = "Ek click Zindagi ki!";
+                headline.innerText = "Please, click Yes now! 🥺👉👈";
+                subtext.innerText = "Emergency parameters reached. Only the big pink 'Yes' works now!";
             }
         }
 
@@ -154,15 +155,15 @@
             yesBtn.style.transform = 'scale(1)';
             yesBtn.style.display = 'none';
 
-            statusBadge.innerText = "💚 Status: Pyaari samajh gayi";
+            statusBadge.innerText = "💚 Status: Successfully Repaired";
             statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            // Celebration Image (Happy cute cat jumping/smiling style)
-            memePhoto.src = "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?q=80&w=500&auto=format&fit=crop"; 
+            // Celebration Success Meme (Success Kid)
+            memePhoto.src = "https://i.imgflip.com/2wi2p.jpg"; 
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
-            subtext.innerHTML = "Acche se padho and call me when you get free. I'm always proud of you. Love you!";
+            subtext.innerHTML = "Acche se padho and call me when you get free. I'm proud of you. Love you!";
         }
     </script>
 </body>
