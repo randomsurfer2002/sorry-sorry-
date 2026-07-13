@@ -22,7 +22,7 @@
         }
         @keyframes dynamic-bounce {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
         }
         .pulse-btn {
             animation: dynamic-bounce 2s infinite;
@@ -31,7 +31,7 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-y-auto relative bg-fixed">
 
-    <!-- Floating Emojis -->
+    <!-- Ambient Background Elements -->
     <div class="absolute top-6 left-6 text-2xl opacity-40">🩺</div>
     <div class="absolute bottom-12 right-6 text-3xl opacity-40">❤️</div>
     <div class="absolute top-1/4 right-8 text-2xl opacity-30">💊</div>
@@ -44,11 +44,10 @@
             🚨 Operation: Mood Repair (Stage 1/6)
         </div>
 
-        <!-- Stable Meme/GIF Container -->
-        <div class="w-48 h-48 mx-auto mb-5 rounded-2xl overflow-hidden shadow-inner bg-slate-50 flex items-center justify-center border border-rose-50 relative">
-            <!-- Loader text if image takes a second on mobile network -->
-            <span class="absolute text-xs text-slate-300 z-0">Loading prescription...</span>
-            <img id="meme-gif" src="https://media.tenor.com/y297tPn54v0AAAAi/cute-cat.gif" alt="Meme Status" class="w-full h-full object-cover relative z-10">
+        <!-- Stable Meme Photo Container -->
+        <div class="w-48 h-48 mx-auto mb-5 rounded-2xl overflow-hidden shadow-md bg-slate-50 flex items-center justify-center border border-rose-50 relative">
+            <span class="absolute text-xs text-slate-300 z-0">Loading prescription photo...</span>
+            <img id="meme-photo" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500&auto=format&fit=crop" alt="Cute Sad Cat" class="w-full h-full object-cover relative z-10">
         </div>
 
         <!-- Interactive Headings -->
@@ -77,96 +76,76 @@
         Prescription ID: #SORRY-DOC-2026
     </div>
 
-    <!-- Scripting Engine for Step-by-Step Meme Buildup -->
+    <!-- Scripting Engine for Step-by-Step Meme Photo Buildup -->
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const headline = document.getElementById('headline');
         const subtext = document.getElementById('subtext');
-        const memeGif = document.getElementById('meme-gif');
+        const memePhoto = document.getElementById('meme-photo');
         const statusBadge = document.getElementById('status-badge');
         
         let currentStage = 0;
         let yesScale = 1;
 
-        // Sound Engine
-        function playTone(freq, type, duration) {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.04, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.004, ctx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + duration);
-            } catch(e) {}
-        }
-
-        // Scripted Meme Stages Array (Using rock solid direct Tenor links)
+        // Scripted Meme Photo Stages Array (Highly reliable public image vectors)
         const stages = [
             {
                 badge: "🚨 Stage 2/6: Heart Rate Rising",
-                gif: "https://media.tenor.com/2m72vNidG3AAAAAi/cute-sad.gif",
+                image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=500&auto=format&fit=crop", // Cat with glasses looking shocked
                 title: "Arey! Sacchi me 'No' click kiya? 😲",
                 subtext: "Doctor sahiba, itna gussa? Chalo ek aur mauka diya, check your clinical empathy parameters again!",
                 noText: "Still No! 😤"
             },
             {
-                badge: "⚠️ Stage 3/6: High BP Alert",
-                gif: "https://media.tenor.com/l57N61vU26MAAAAi/cat-cute.gif",
-                title: "Dekho, cute cat ro rahi hai... 😭",
-                subtext: "Itni pyaari cat ko rulaoongi kya? Please maan jao na, ab pure din gussa thodi na rehte hain!",
+                badge: "⚠️ Stage 3/6: BP Badh Gya",
+                image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?q=80&w=500&auto=format&fit=crop", // Judgemental Cat face
+                title: "Dekho, cute cat kitni sad hai... 😿",
+                subtext: "Itni pyaari shakal ko rulaoongi kya? Please maan jao na, ab pure din gussa thodi na rehte hain!",
                 noText: "Nahi Maanungi! 🙅‍♀️"
             },
             {
                 badge: "🔥 Stage 4/6: Critical Condition",
-                gif: "https://media.tenor.com/xI-g5_pU17UAAAAi/peach-goma.gif",
+                image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=500&auto=format&fit=crop", // Sad puppy eyes pleading
                 title: "Oho, Heart Attack aa jayega mujhe!💔",
-                subtext: "Agar abki baar No dabaya toh clinical shock lag jayega mujhe. Urgent prescription: Click the Pink Button!",
+                subtext: "Agar abki baar No dabaya toh kidney mein heart attack aa jayega mujhe. Click the Pink Button!",
                 noText: "Ek aur baar No! 😜"
             },
             {
                 badge: "🛑 Stage 5/6: Emergency Ward",
-                gif: "https://media.tenor.com/00C819R9J0UAAAAi/cry-sad.gif",
+                image: "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=500&auto=format&fit=crop", // Cute kitten hide face hiding under blanket
                 title: "Bas karo, kitni pariksha logi? 🥺",
-                subtext: "Aaditya is 99% close to mental breakdown. Medical ethics don't allow torturing patients like this, Doc!",
+                subtext: "Sochlo tumko hi ilaaj karna padega",
                 noText: "Last warning No! 💀"
             },
             {
-                badge: "🛡️ Stage 6/6: Absolute Lockout",
-                gif: "https://media.tenor.com/u94-N89u6v0AAAAi/begging-cat.gif",
-                title: "Please, Ab toh Maan Jao! 🙏❤️",
-                subtext: "Okay fine, ab No button click karne par bhi text change nahi hoga. Ab bas upar wala bada pink button hi bacha sakta hai. Please press it! 👇",
-                noText: "Clicking this does nothing now! 🛑"
+                badge: "🛡️ Stage 6/6: Gaya Coma mei",
+                image: "https://images.unsplash.com/photo-1535268647977-a403b69fc756?q=80&w=500&auto=format&fit=crop", // Pleading otter holding hands together
+                title: "अब त मान जाईं! 🙏❤️",
+                subtext: "Sorry, sorry कह तारू 👇",
+                noText: "एकरा के क्लिक कइला से कुछ ना होई 🛑"
             }
         ];
 
         function triggerNextMeme() {
-            playTone(380, 'triangle', 0.1);
-            
             if (currentStage < stages.length) {
                 const stage = stages[currentStage];
                 
-                // Update Layout Elements
+                // Update Layout Elements smoothly
                 statusBadge.innerText = stage.badge;
-                memeGif.src = stage.gif;
+                memePhoto.src = stage.image;
                 headline.innerText = stage.title;
                 subtext.innerText = stage.subtext;
                 noBtn.innerText = stage.noText;
 
-                // Make the Yes button grow progressively to make it irresistible
-                yesScale += 0.2;
+                // Make the Yes button grow progressively larger
+                yesScale += 0.15;
                 yesBtn.style.transform = `scale(${yesScale})`;
                 
                 currentStage++;
             } else {
-                // If she keeps tapping at the final stage
-                headline.innerText = "Please, click Yes now! 🥺👉👈";
-                subtext.innerText = "Emergency parameters reached. Only the big pink 'Yes' works now!";
+                headline.innerText = "Please, Please, Pleaseeeee! 🥺👉👈";
+                subtext.innerText = "Ek click Zindagi ki!";
             }
         }
 
@@ -174,20 +153,16 @@
             noBtn.style.display = 'none';
             yesBtn.style.transform = 'scale(1)';
             yesBtn.style.display = 'none';
-            
-            playTone(523.25, 'sine', 0.12);
-            setTimeout(() => playTone(659.25, 'sine', 0.12), 80);
-            setTimeout(() => playTone(783.99, 'sine', 0.25), 160);
 
-            statusBadge.innerText = "💚 Status: Successfully Repaired";
+            statusBadge.innerText = "💚 Status: Pyaari samajh gayi";
             statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            // Unstoppable celebration gif
-            memeGif.src = "https://media.tenor.com/gK6pL2E9W3IAAAAi/milk-and-mocha.gif"; 
+            // Celebration Image (Happy cute cat jumping/smiling style)
+            memePhoto.src = "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?q=80&w=500&auto=format&fit=crop"; 
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
-            subtext.innerHTML = "Acche se padho and call me when you get free. I'm proud of you. Love you!";
+            subtext.innerHTML = "Acche se padho and call me when you get free. I'm always proud of you. Love you!";
         }
     </script>
 </body>
