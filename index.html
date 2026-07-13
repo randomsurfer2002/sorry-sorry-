@@ -41,24 +41,24 @@
         
         <!-- Live Alert Badge -->
         <div id="status-badge" class="inline-block bg-rose-50 border border-rose-100 text-rose-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4 uppercase tracking-wider">
-            🚨 Operation: Mood Repair (Stage 1/6)
+            🚨 Mood Status: Senti 
         </div>
 
         <!-- Stable Meme Photo Container -->
         <div class="w-full h-52 mx-auto mb-5 rounded-2xl overflow-hidden shadow-md bg-slate-100 flex items-center justify-center border border-rose-50 relative">
-            <span class="absolute text-xs text-slate-300 z-0">Loading original meme...</span>
-            <!-- Drake Meme Initial Stage -->
+            <span class="absolute text-xs text-slate-300 z-0">Loading meme...</span>
+            <!-- Drake Template -->
             <img id="meme-photo" src="https://i.imgflip.com/43a45p.png" alt="Meme Template" class="w-full h-full object-contain relative z-10">
         </div>
 
-        <!-- Interactive Headings -->
+        <!-- Dynamic Title -->
         <h1 id="headline" class="serif-font text-2xl font-bold text-slate-800 mb-2 transition-all duration-300">
             I'm Sorry, Babu... 🥺
         </h1>
 
-        <!-- Funny Medical Prompts -->
+        <!-- Dynamic Content Prompt -->
         <p id="subtext" class="text-slate-600 mb-6 text-sm leading-relaxed min-h-[64px] flex items-center justify-center px-2">
-            I know yesterday you were sad. Your angry face is incredibly cute, but making you feel unheard hurts me the most. Maaf kar do na? Please?
+            Mujhe pata hai kal tum gussa thi. Waise gusse me tum bohot cute lagti ho, par tumko bura laga dekh kar mujhe bilkul accha nahi lagta. Maaf kar do na please?
         </p>
 
         <!-- Dynamic Button Matrix -->
@@ -89,42 +89,42 @@
         let currentStage = 0;
         let yesScale = 1;
 
-        // Scripted Meme Photo Stages Array (Using ultra-reliable global Imgflip CDN vectors)
+        // Custom Desi Hinglish text logic with Bhojpuri finale
         const stages = [
             {
-                badge: "🚨 Stage 2/6: Heart Rate Rising",
+                badge: "🚨 Danger Level 1",
                 image: "https://i.imgflip.com/26am.jpg", // One Does Not Simply
-                title: "Arey! Sacchi me 'No' click kiya? 😲",
-                subtext: "One does not simply say 'No' to an apology as sincere as this! Check your clinical empathy parameters again, Doc!",
-                noText: "Still No! 😤"
+                title: "Arey sacchi me 'No' daba diya? 😂",
+                subtext: "Itni aasaani se aam patient ki tarah sorry reject kar dogi kya Doctor Sahiba? Ek aur baar socho!",
+                noText: "Nahi maaf karungi! 🙅‍♀️"
             },
             {
-                badge: "⚠️ Stage 3/6: High BP Alert",
+                badge: "⚠️ High BP Warning",
                 image: "https://i.imgflip.com/1ur9b0.jpg", // Distracted Boyfriend
-                title: "Gusse ko chodo, smile back! 😅",
-                subtext: "Why focus on minor fights when you could be checking out your awesome future plans together? Maan jao ab!",
-                noText: "Nahi Maanungi! 🙅‍♀️"
+                title: "Hey bhagwan! Phir se 'No'? 🤦‍♂️",
+                subtext: "Tumhara focus padhai aur is gusse par hi rahega kya? Thoda idhar bhi dekh lo, itna pyaara page banaya hai!",
+                noText: "Pakka nahi! 😤"
             },
             {
-                badge: "🔥 Stage 4/6: Critical Condition",
-                image: "https://i.imgflip.com/1bgw.jpg", // Grumpy Cat original classic meme
-                title: "Itna bhayanak mood off? 💔",
-                subtext: "An apology code this perfect doesn't deserve a rejection. Urgent prescription: Click the Pink Button!",
-                noText: "Ek aur baar No! 😜"
+                badge: "🔥 Medical License at Risk",
+                image: "https://i.imgflip.com/1bgw.jpg", // Grumpy Cat
+                title: "Error 403: Gussa Out of Bounds!",
+                subtext: "Doctor hokar patient par itnaatyachar? Medical ethics iski ijazat nahi dete! Jaldi se bada wala pink button daba do.",
+                noText: "Ek aur baar try karti hu 😜"
             },
             {
-                badge: "🛑 Stage 5/6: Emergency Ward",
-                image: "https://i.imgflip.com/9ehk.jpg", // Disappointed Fan Meme
-                title: "Meme badal gaya, aapka mood nahi? 🥺",
-                subtext: "Aaditya is close to a total breakdown. Medical ethics don't allow torturing patients like this, Doctor Sahiba!",
-                noText: "Last warning No! 💀"
+                badge: "🛑 Patient is Crying",
+                image: "https://i.imgflip.com/9ehk.jpg", // Disappointed Fan
+                title: "Meme badal gaye par gussa wahi hai? 🥺",
+                subtext: "Mera poora breakdown hone wala hai ab. Itna mat rulao, jaldi se haan bol ke call pe aao na!",
+                noText: "Yeh lo aakhri baar No! 💀"
             },
             {
-                badge: "🛡️ Stage 6/6: Absolute Lockout",
-                image: "https://i.imgflip.com/2fm6x.jpg", // Epic pleading face template
-                title: "Please, Ab toh Maan Jao! 🙏❤️",
-                subtext: "Okay fine, ab No button click karne par bhi story change nahi hogi. Ab bas upar wala bada pink button hi bacha sakta hai. Please press it! 👇",
-                noText: "Clicking this does nothing now! 🛑"
+                badge: "🛡️ BHOJPURI MODE ACTIVATED",
+                image: "https://i.imgflip.com/2fm6x.jpg", // Pleading Face Template
+                title: "Ae bhaiya! Ab ta maan jaa na! 🙏❤️",
+                subtext: "Hadd ba ee! Ab 'No' dabawe se kuchu na hoi, poora system eja leak ho gail ba! Ab chupchaap u upar wala bada ka pink buttonwa daba da raaja! 👇",
+                noText: "Dabawe ke pari ka? 🛑"
             }
         ];
 
@@ -132,21 +132,21 @@
             if (currentStage < stages.length) {
                 const stage = stages[currentStage];
                 
-                // Update Layout Elements smoothly
                 statusBadge.innerText = stage.badge;
                 memePhoto.src = stage.image;
                 headline.innerText = stage.title;
                 subtext.innerText = stage.subtext;
                 noBtn.innerText = stage.noText;
 
-                // Make the Yes button grow progressively larger
-                yesScale += 0.18;
+                // Progressive button scaling framework
+                yesScale += 0.2;
                 yesBtn.style.transform = `scale(${yesScale})`;
                 
                 currentStage++;
             } else {
-                headline.innerText = "Please, click Yes now! 🥺👉👈";
-                subtext.innerText = "Emergency parameters reached. Only the big pink 'Yes' works now!";
+                // If she continues to tap after Bhojpuri lockout
+                headline.innerText = "Chupchaap 'Yes' daba da ab! 🥺👉👈";
+                subtext.innerText = "Ab 'No' buttonwa thak gail ba, khali 'Yes' kaam kari!";
             }
         }
 
@@ -155,11 +155,10 @@
             yesBtn.style.transform = 'scale(1)';
             yesBtn.style.display = 'none';
 
-            statusBadge.innerText = "💚 Status: Successfully Repaired";
+            statusBadge.innerText = "💚 Status: All Sorted!";
             statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-[11px] font-bold px-4 py-1 rounded-full mb-4";
             
-            // Celebration Success Meme (Success Kid)
-            memePhoto.src = "https://i.imgflip.com/2wi2p.jpg"; 
+            memePhoto.src = "https://i.imgflip.com/2wi2p.jpg"; // Success Kid
             
             headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
