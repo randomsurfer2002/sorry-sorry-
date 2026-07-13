@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Doctor 🩺❤️</title>
+    <!-- Tailwind CSS for clean, high-end look -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+        }
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
+
+    <!-- Floating Background Decorative Elements -->
+    <div class="absolute top-10 left-10 text-pink-300 animate-bounce duration-1000 text-3xl">🩺</div>
+    <div class="absolute bottom-10 right-10 text-pink-300 animate-pulse text-3xl">❤️</div>
+    <div class="absolute top-1/4 right-12 text-pink-200 text-4xl">✨</div>
+
+    <!-- Main Card -->
+    <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-xl max-w-md w-full text-center border border-pink-100 relative z-10 transition-all duration-500 transform hover:scale-[1.01]">
+        
+        <!-- Interactive GIF Container Instead of Static Emoji -->
+        <div class="w-48 h-48 mx-auto mb-6 rounded-2xl overflow-hidden shadow-md bg-pink-50 flex items-center justify-center">
+            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2JkMmN5Mnd5Znd5d2t5Mnd5Znd5d2t5Mnd5Znd5d2t5Mnd5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1q5wFBYFdBAq18a/giphy.gif" alt="Cute GIF" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Dynamic Title -->
+        <h1 id="headline" class="serif-font text-3xl md:text-4xl font-semibold text-slate-800 mb-4 transition-all duration-300">
+            I'm Sorry, Babu...
+        </h1>
+
+        <!-- Content Prompt -->
+        <p id="subtext" class="text-slate-600 mb-8 text-sm md:text-base leading-relaxed">
+            I know yesterday you were sad. Your angry face is incredibly cute, but making you feel unheard hurts me the most. Maaf kar do na? Please?
+        </p>
+
+        <!-- Interactive Button Core -->
+        <div id="button-container" class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[60px]">
+            <button id="yes-btn" onclick="acceptApology()" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg shadow-pink-200 transition-all duration-300 transform active:scale-95 w-full sm:w-auto cursor-pointer">
+                Yes, Forgiven! ❤️
+            </button>
+            <button id="no-btn" onmouseover="evadeButton()" onclick="evadeButton()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 font-semibold px-8 py-3 rounded-full transition-all duration-300 w-full sm:w-auto absolute sm:static md:relative">
+                No 😤
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Scripting -->
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const headline = document.getElementById('headline');
+        const subtext = document.getElementById('subtext');
+        const gifImage = document.getElementById('main-gif');
+        
+        let clickCount = 0;
+        let yesScale = 1;
+
+        // Function that runs away when she tries to click "No"
+        function evadeButton() {
+            clickCount++;
+            
+            // Make the "Yes" button progressively massive
+            yesScale += 0.2;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            
+            // Generate chaotic coordinate spaces inside the screen limits
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${Math.max(20, x)}px`;
+            noBtn.style.top = `${Math.max(20, y)}px`;
+
+            // Dynamic playful text & gif updates based on escape counter
+            if (clickCount === 2) {
+                headline.innerText = "Arey! Click nahi ho raha? 😂";
+                gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3BndnJ5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t3cL1Ch4IFPzy/giphy.gif"; // Playful/Teasing
+            } else if (clickCount === 4) {
+                subtext.innerText = "System configuration handles only 'Yes' responses right now, Doc. Hard constraints apply. Try the pink button!";
+            } else if (clickCount >= 6) {
+                headline.innerText = "Just press the Pink Button already! ❤️";
+                gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGBJLxl6/giphy.gif"; // Crying/Begging
+            }
+        }
+
+        // Execution when she finally clicks "Yes"
+        function acceptApology() {
+            // Restore static orientation layout parameters
+            noBtn.style.display = 'none';
+            yesBtn.style.transform = 'scale(1)';
+            yesBtn.style.display = 'none';
+            
+            // Switch to happy/love gif
+            gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l4pTdcifPzcib8xaE/giphy.gif"; 
+            
+            headline.classList.remove('text-slate-800');
+            headline.classList.add('text-pink-600');
+            headline.innerText = "Okay Doctor Sahiba 🩺❤️";
+            subtext.innerHTML = "Acche se padho and call me when you get free i'm proud of you. love you!";
+        }
+    </script>
+</body>
+</html>
