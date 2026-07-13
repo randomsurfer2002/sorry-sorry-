@@ -2,113 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Favorite Doctor 🩺❤️</title>
-    <!-- Tailwind CSS for clean, high-end look -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            background: linear-gradient(135deg, #fff1f2 0%, #fce7f3 50%, #ffe4e6 100%);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         .serif-font {
             font-family: 'Playfair Display', serif;
         }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .floating-element {
+            animation: float-slow 4s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden relative touch-none">
 
-    <!-- Floating Background Decorative Elements -->
-    <div class="absolute top-10 left-10 text-pink-300 animate-bounce duration-1000 text-3xl">🩺</div>
-    <div class="absolute bottom-10 right-10 text-pink-300 animate-pulse text-3xl">❤️</div>
-    <div class="absolute top-1/4 right-12 text-pink-200 text-4xl">✨</div>
+    <div class="absolute top-6 left-6 text-pink-300 floating-element text-2xl opacity-60">🩺</div>
+    <div class="absolute bottom-12 right-6 text-rose-300 floating-element text-3xl opacity-60" style="animation-delay: 1s;">❤️</div>
+    <div class="absolute top-1/5 right-8 text-pink-300 floating-element text-2xl opacity-50" style="animation-delay: 2s;">💊</div>
 
-    <!-- Main Card -->
-    <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-xl max-w-md w-full text-center border border-pink-100 relative z-10 transition-all duration-500 transform hover:scale-[1.01]">
+    <div id="main-card" class="bg-white/85 backdrop-blur-lg p-6 md:p-12 rounded-3xl shadow-2xl max-w-sm w-full text-center border border-rose-100 relative z-10 transition-all duration-300">
         
-        <!-- Interactive GIF Container Instead of Static Emoji -->
-        <div class="w-48 h-48 mx-auto mb-6 rounded-2xl overflow-hidden shadow-md bg-pink-50 flex items-center justify-center">
-            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2JkMmN5Mnd5Znd5d2t5Mnd5Znd5d2t5Mnd5Znd5d2t5Mnd5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1q5wFBYFdBAq18a/giphy.gif" alt="Cute GIF" class="w-full h-full object-cover">
+        <div id="status-badge" class="inline-block bg-rose-50 border border-rose-100 text-rose-600 text-xs font-semibold px-4 py-1 rounded-full mb-4 uppercase tracking-wider">
+            🚨 Operation: Mood Repair Active
         </div>
 
-        <!-- Dynamic Title -->
-        <h1 id="headline" class="serif-font text-3xl md:text-4xl font-semibold text-slate-800 mb-4 transition-all duration-300">
+        <div class="w-40 h-40 mx-auto mb-4 rounded-2xl overflow-hidden shadow-sm bg-rose-50/50 flex items-center justify-center border border-rose-100">
+            <img id="main-gif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY0Y3Y1N3M1YmFpdW9wM281b3gwb3AwdzZpYmE4ZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1q5wFBYFdBAq18a/giphy.gif" alt="Cute Sulking GIF" class="w-full h-full object-cover">
+        </div>
+
+        <h1 id="headline" class="serif-font text-2xl md:text-3xl font-semibold text-slate-800 mb-2 transition-all duration-300">
             I'm Sorry, Babu...
         </h1>
 
-        <!-- Content Prompt -->
-        <p id="subtext" class="text-slate-600 mb-8 text-sm md:text-base leading-relaxed">
+        <p id="subtext" class="text-slate-600 mb-6 text-xs md:text-sm leading-relaxed min-h-[40px]">
             I know yesterday you were sad. Your angry face is incredibly cute, but making you feel unheard hurts me the most. Maaf kar do na? Please?
         </p>
 
-        <!-- Interactive Button Core -->
-        <div id="button-container" class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[60px]">
-            <button id="yes-btn" onclick="acceptApology()" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg shadow-pink-200 transition-all duration-300 transform active:scale-95 w-full sm:w-auto cursor-pointer">
+        <div id="counter-zone" class="text-[10px] text-slate-400 font-medium mb-4 opacity-0 transition-opacity duration-300">
+            Rejection attempts blocked: <span id="click-count-span" class="text-rose-500 font-bold">0</span>
+        </div>
+
+        <div id="button-container" class="flex flex-row items-center justify-center gap-4 relative min-h-[50px] w-full px-2">
+            <button id="yes-btn" onclick="acceptApology()" class="bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold px-6 py-2.5 rounded-full shadow-md shadow-rose-200 transition-all duration-300 transform active:scale-95 z-20 text-sm whitespace-nowrap">
                 Yes, Forgiven! ❤️
             </button>
-            <button id="no-btn" onmouseover="evadeButton()" onclick="evadeButton()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 font-semibold px-8 py-3 rounded-full transition-all duration-300 w-full sm:w-auto absolute sm:static md:relative">
+            <button id="no-btn" class="bg-slate-100 text-slate-500 font-semibold px-6 py-2.5 rounded-full transition-all duration-200 absolute z-30 shadow-sm text-sm whitespace-nowrap">
                 No 😤
             </button>
         </div>
     </div>
 
-    <!-- Interactive Scripting -->
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const headline = document.getElementById('headline');
         const subtext = document.getElementById('subtext');
         const gifImage = document.getElementById('main-gif');
+        const counterZone = document.getElementById('counter-zone');
+        const clickSpan = document.getElementById('click-count-span');
+        const statusBadge = document.getElementById('status-badge');
         
         let clickCount = 0;
         let yesScale = 1;
 
-        // Function that runs away when she tries to click "No"
-        function evadeButton() {
+        function playTone(freq, type, duration) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.005, ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        // Lock No button to its initial grid space smoothly
+        function setupMobileLayout() {
+            noBtn.style.left = 'calc(50% + 8px)';
+            noBtn.style.transform = 'none';
+        }
+        window.onload = setupMobileLayout;
+
+        function evadeButton(e) {
+            if(e) e.preventDefault(); // Blocks default tap execution on iOS completely
             clickCount++;
+            counterZone.classList.remove('opacity-0');
+            clickSpan.innerText = clickCount;
             
-            // Make the "Yes" button progressively massive
-            yesScale += 0.2;
+            playTone(493.88, 'triangle', 0.08); // B4 tone
+            
+            // Scaled scaling physics to prevent clipping screen bounds on iPhone
+            yesScale += 0.18;
             yesBtn.style.transform = `scale(${yesScale})`;
             
-            // Generate chaotic coordinate spaces inside the screen limits
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+            // Exact iPad/iPhone Safe Zone calculation bounds
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const safePadding = 40;
             
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${Math.max(20, x)}px`;
-            noBtn.style.top = `${Math.max(20, y)}px`;
+            const maxX = window.innerWidth - btnWidth - (safePadding * 2);
+            const maxY = window.innerHeight - btnHeight - (safePadding * 2);
+            
+            const randomX = Math.random() * maxX + safePadding;
+            const randomY = Math.random() * maxY + safePadding;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
 
-            // Dynamic playful text & gif updates based on escape counter
             if (clickCount === 2) {
-                headline.innerText = "Arey! Click nahi ho raha? 😂";
-                gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3BndnJ5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t3cL1Ch4IFPzy/giphy.gif"; // Playful/Teasing
+                headline.innerText = "Arey tap nahi ho raha? 😂";
+                gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzhwMG1ndm9nMzhvMzhrN2FpZzBwaThpaThpaThpaThwaThwaThwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t3cL1Ch4IFPzy/giphy.gif";
             } else if (clickCount === 4) {
-                subtext.innerText = "System configuration handles only 'Yes' responses right now, Doc. Hard constraints apply. Try the pink button!";
+                statusBadge.innerText = "⚠️ High Pressure Active";
+                subtext.innerText = "System configurations handle only 'Yes' responses right now, Doc.";
+                gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3g5M3R3Y2g1bzhvaTNvd2dpZ2pndzhpZzhpZzhpZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGBJLxl6/giphy.gif";
             } else if (clickCount >= 6) {
-                headline.innerText = "Just press the Pink Button already! ❤️";
-                gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGBJLxl6/giphy.gif"; // Crying/Begging
+                headline.innerText = "Error 403: Rejection Forbidden";
+                subtext.innerHTML = "Excess anger parameters detected. Medical license code risk! Tap the pink button! 🫣";
             }
         }
 
-        // Execution when she finally clicks "Yes"
+        // Universal Event Bindings targeting iOS Touch alongside standard pointers
+        noBtn.addEventListener('touchstart', evadeButton, {passive: false});
+        noBtn.addEventListener('mouseover', evadeButton);
+
         function acceptApology() {
-            // Restore static orientation layout parameters
             noBtn.style.display = 'none';
             yesBtn.style.transform = 'scale(1)';
             yesBtn.style.display = 'none';
+            counterZone.style.display = 'none';
             
-            // Switch to happy/love gif
-            gifImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5OHp5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l4pTdcifPzcib8xaE/giphy.gif"; 
+            playTone(523.25, 'sine', 0.12);
+            setTimeout(() => playTone(659.25, 'sine', 0.12), 80);
+            setTimeout(() => playTone(783.99, 'sine', 0.25), 160);
+
+            statusBadge.innerText = "💚 Status: Successfully Repaired";
+            statusBadge.className = "inline-block bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-semibold px-4 py-1 rounded-full mb-4";
             
-            headline.classList.remove('text-slate-800');
-            headline.classList.add('text-pink-600');
+            gifImage.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIybHhsdzBvNzNiaDRpbmpybWJpM2NpeWloYmE4ZzhpZzhpZzhpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l4pTdcifPzcib8xaE/giphy.gif"; 
+            
+            headline.className = "serif-font text-2xl font-bold text-emerald-600 mb-2 transition-all duration-300";
             headline.innerText = "Okay Doctor Sahiba 🩺❤️";
-            subtext.innerHTML = "Acche se padho and call me when you get free i'm proud of you. love you!";
+            subtext.innerHTML = "Acche se padho and call me when you get free. I'm proud of you. Love you!";
         }
     </script>
 </body>
